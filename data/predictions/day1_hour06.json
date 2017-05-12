@@ -1,0 +1,137 @@
+[
+  {
+    "src_id": "osgb4000000020974087",
+    "source": 6639,
+    "target": 6637,
+    "direction": 1,
+    "prediction (km/h)": 69.8313217163086,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000020920681",
+    "source": 181699,
+    "target": 6622,
+    "direction": 1,
+    "prediction (km/h)": 62.52085876464844,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000020925845",
+    "source": 6623,
+    "target": 6622,
+    "direction": 1,
+    "prediction (km/h)": 69.96424865722656,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000021007583",
+    "source": 19322,
+    "target": 6623,
+    "direction": 1,
+    "prediction (km/h)": 78.17008972167969,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000020925857",
+    "source": 23314,
+    "target": 6650,
+    "direction": 1,
+    "prediction (km/h)": 73.15382385253906,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000020925858",
+    "source": 6650,
+    "target": 6651,
+    "direction": 1,
+    "prediction (km/h)": 71.45836639404297,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000021059310",
+    "source": 181719,
+    "target": 6653,
+    "direction": 1,
+    "prediction (km/h)": 109.55587768554688,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000020916747",
+    "source": 181717,
+    "target": 6655,
+    "direction": 1,
+    "prediction (km/h)": 119.8843002319336,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000021059559",
+    "source": 7253,
+    "target": 6655,
+    "direction": 1,
+    "prediction (km/h)": 120.61874389648438,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000020947731",
+    "source": 6659,
+    "target": 6657,
+    "direction": 1,
+    "prediction (km/h)": 77.53504180908203,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000020920690",
+    "source": 6651,
+    "target": 6658,
+    "direction": 1,
+    "prediction (km/h)": 74.15628051757812,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000020934456",
+    "source": 6658,
+    "target": 6659,
+    "direction": 1,
+    "prediction (km/h)": 76.11519622802734,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000020975234",
+    "source": 6657,
+    "target": 6660,
+    "direction": 1,
+    "prediction (km/h)": 80.92366790771484,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000020934460",
+    "source": 6660,
+    "target": 6663,
+    "direction": 1,
+    "prediction (km/h)": 78.53356170654297,
+    "day": "Monday",
+    "hour": 6
+  },
+  {
+    "src_id": "osgb4000000020934461",
+    "source": 6663,
+    "target": 6664,
+    "direction": 1,
+    "prediction (km/h)": 78.71670532226562,
+    "day": "Monday",
+    "hour": 6
+  }
+]
