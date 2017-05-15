@@ -1,13 +1,15 @@
 charts = {};
+
 charts.bar = function() {
   // basic data
-  var margin = {top: 10, bottom: 30, left: 80, right: 0},
-      width = 900,
-      height = 500,
+  var margin = {top: 10, bottom: 20, left: 0, right: 0},
+      width = 400,
+      height = 400,
       // accessors
       xValue = function(d) { return d.x; },
       yValue = function(d) { return d.y; },
       // chart underpinnings
+      brush = d3.svg.brush(),
       xAxis = d3.svg.axis().orient('bottom'),
       yAxis = d3.svg.axis().orient('left'),
       x = d3.scale.ordinal(),
@@ -25,7 +27,7 @@ charts.bar = function() {
   function render(selection) {
     selection.each(function(data) {
       // setup the basics
-    //   if (elastic.margin) margin.left = formatNumber(d3.max(data, function(d) { return d.y; })).length * 13;
+      if (elastic.margin) margin.left = formatNumber(d3.max(data, function(d) { return d.y; })).length * 13;
       var w = width - margin.left - margin.right,
           h = height - margin.top - margin.bottom;
 
@@ -45,13 +47,19 @@ charts.bar = function() {
       x.rangeRoundBands([0, w], .1);
       y.range([h, 0]);
 
-      // reset axes
+
+      // reset axes and brush
       xAxis.scale(x);
       yAxis.scale(y);
+      brush.x(x)
+          .on('brushstart.chart', brushstart)
+          .on('brush.chart', brushmove)
+          .on('brushend.chart', brushend);
+      brush.clear();
 
       var svg = selection.selectAll('svg').data([data]),
           chartEnter = svg.enter().append('svg')
-                                    .append('g')
+                                  .append('g')
                                     .attr('width', w)
                                     .attr('height', h)
                                     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
@@ -65,7 +73,14 @@ charts.bar = function() {
                 .classed('y axis', true)
       chartEnter.append('g').classed('barGroup', true);
       
+      chart.selectAll('.brush').remove();
       chart.selectAll('.selected').classed('selected', false);
+      
+      chart.append('g')
+                .classed('brush', true)
+                .call(brush)
+              .selectAll('rect')
+                .attr('height', h);
 
       bars = chart.select('.barGroup').selectAll('.bar').data(data);
 
@@ -99,8 +114,22 @@ charts.bar = function() {
             .transition()
                 .duration(duration)
                   .call(yAxis);  
+
+      function brushstart() {
+        chart.classed("selecting", true);
+      }
+
+      function brushmove() {
+        var extent = d3.event.target.extent();
+        bars.classed("selected", function(d) { return extent[0] <= x(d.x) && x(d.x) + x.rangeBand() <= extent[1]; });
+      }
+
+      function brushend() {
+        chart.classed("selecting", !d3.event.target.empty());
+      } 
     });
   }
+
   // basic data
   render.margin = function(_) {
     if (!arguments.length) return margin;
@@ -131,6 +160,11 @@ charts.bar = function() {
   };
 
   // chart underpinnings
+  render.brush = function(_) {
+    if (!arguments.length) return brush;
+    brush = _;
+    return render;
+  };
   render.xAxis = function(_) {
     if (!arguments.length) return xAxis;
     xAxis = _;
@@ -173,123 +207,6 @@ charts.bar = function() {
     formatNumber = _;
     return render;
   };
-  return d3.rebind(render, 'on');
+
+  return d3.rebind(render, brush, 'on');
 };
-
-function combine(error, ...data){
-    if (error) {
-        console.log(error);
-    }
-    return lrgData = (d3.merge(data));
-}
-
-var CsvModel = Backbone.Model.extend({});
-var CsvCollection = Backbone.Collection.extend({
-    loadAll: function(){
-        for(k=1; k <=1; k ++){
-            for(i = 6; i <= 6; i++){
-                this.url = "data/predictions/day"+k+"_hour" + i + ".csv";
-                this.fetch({remove: false});
-            }
-        }
-    },
-    model: CsvModel,
-        options = options || {};
-        options.dataType = 'text';
-        return Backbone.Collection.prototype.fetch.call(this, options);
-    }
-});
-var CsvView = Backbone.View.extend({
-    initialize: function(options){
-        this.listenTo(options.model, 'sync', this.render);
-    },
-    render: function(){
-        this.$el.text(JSON.stringify(this.model.toJSON()));
-    }
-});
-
-// var PredicitonModel = Backbone.Model.extend();
-
-// var LargeCollection = Backbone.Collection.extend({
-//     url: 'data/itn_geom_epsg4326.json',
-//     initialize: function(){
-//         this.fetch();
-//     }
-// })
-// var DataCollection = Backbone.Collection.extend({
-//     loadAll: function(){
-//         for(i = 6; i <= 6; i++){
-//             this.url = "data/predictions/day1_hour0" + i + ".json";
-//             this.fetch();
-//         }
-//         // this.url = 'data/itn_geom_epsg4326.json';
-//         // this.fetch({add: true})
-//     },
-//     parse: function(d){
-//         return d;
-//     },
-//     initialize: function(){
-//         this.loadAll();
-//     },
-//     model: PredicitonModel
-// })
-
-var BarChart = Backbone.View.extend({
-  el: "#chart",
-  other: {},
-  initialize: function(options) {
-    this.other = options.other;
-    this.collection.on("change reset add remove", this.render, this);
-    // this.listenTo(collection, "change reset add remove", this.render, this);
-    var bar = charts.bar();
-    bar.xValue(function(d) {console.log return d.get('source'); });
-    bar.yValue(function(d) { return d.get('prediction (km/h)'); });
-    this.bar = bar;
-    this.render();
-  },
-  render: function() {
-    d3.select(this.el) 
-        .datum(this.collection.models)
-        .call(this.bar);
-  }
-});
-
-// var dataCollection = new DataCollection();
-// var largeCollection = new LargeCollection();
-var dataCollection = new CsvCollection();
-var barView = new BarChart({ collection: dataCollection });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
