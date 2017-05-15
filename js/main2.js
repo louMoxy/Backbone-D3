@@ -14,8 +14,10 @@ var Sum = Backbone.Model.extend({
 });
 
 // Collections
-var CsvModel = Backbone.Model.extend({});
-var CsvCollection = Backbone.Collection.extend({
+var Data = Backbone.Collection.extend({
+  model: Point,
+  extent: [0,0],
+  x: d3.scale.ordinal(),
     loadAll: function(){
         for(k=1; k <=1; k ++){
             for(i = 6; i <= 6; i++){
@@ -24,12 +26,14 @@ var CsvCollection = Backbone.Collection.extend({
             }
         }
     },
-    model: CsvModel,
-    fetch: function(options){
-        options = options || {};
-        options.dataType = 'text';
-        return Backbone.Collection.prototype.fetch.call(this, options);
-    }
+  initialize: function(options) {
+    this.loadAll();
+  },
+  fetch: function(options) {
+    options = options || {};
+    options.dataType = 'text';
+    return Backbone.Collection.prototype.fetch.call(this, options);
+  }
 });
 
 // Views
@@ -75,7 +79,7 @@ var SumView = Backbone.View.extend({
 });
 
 // Main
-var dataArr = new CsvCollection();
+var dataArr = new Data();
 // var barView = new BarChart({ collection: dataArr });
 // var helper = new HelperView({ collection: dataArr });
 // var sum = new SumView({ model: dataArr.sum });
