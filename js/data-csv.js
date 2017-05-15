@@ -12,8 +12,8 @@ var CsvCollection = Backbone.Collection.extend({
         //         this.fetch({remove: false});
         //     })
         // })
-        for(k=1; k <=7; k ++){
-            for(i = 6; i <= 20; i++){
+        for(k=1; k <=1; k ++){
+            for(i = 6; i <= 6; i++){
                 this.url = "data/predictions/day"+ k +"_hour" + i + ".csv";
                 this.fetch({remove: false});
             }
