@@ -40,6 +40,7 @@ var CsvCollection = Backbone.Collection.extend({
         return data;
     },
     fetch: function(options){
+
         options = options || {};
         options.dataType = 'text';
         return Backbone.Collection.prototype.fetch.call(this, options);
